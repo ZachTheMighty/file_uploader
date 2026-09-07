@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("node:path");
+const router = require("./router.js");
 const { loadEnvFile } = require("node:process");
 
 try {
@@ -10,7 +11,10 @@ try {
 
 const app = express();
 
-app.get("/", (req, res) => res.send("niggar"));
+app.set("views", path.join(__dirname, "views"));
+app.set("views engine", "ejs");
+
+app.use("/", router);
 
 const port = process.env.NODE_SERVER_PORT;
 app.listen(port, (error) => {
