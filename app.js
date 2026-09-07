@@ -1,6 +1,6 @@
-import express from "express";
-import path from "node:path";
-import { loadEnvFile } from "node:process";
+const express = require("express");
+const path = require("node:path");
+const { loadEnvFile } = require("node:process");
 
 try {
   loadEnvFile();
