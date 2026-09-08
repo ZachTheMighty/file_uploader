@@ -69,7 +69,7 @@ const signUpPost = [
     if (!errors.isEmpty())
       return res.status(400).render("sign_up.ejs", { errors: errors.array() });
 
-    prisma.user.create({
+    await prisma.user.create({
       data: {
         first_name: req.body.firstName,
         last_name: req.body.lastName,
