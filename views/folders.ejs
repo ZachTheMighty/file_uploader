@@ -9,14 +9,14 @@
 <% if(folders.length !== 0) {%>
 <ul>
 <% folders.forEach(folder => {%>
-<li><%= folder%></li>
+<li><%= folder.name%></li>
 <% }); %>
 </ul>
 <% } else { %>
 <p>You have no folders</p>
 <% } %>
 <h2>Create new folder</h2>
-<form action="/dashboard/folders/new">
+<form action="/dashboard/folders/new" method="post">
 <div><label for="folder">Name</label><input type="text" id="folder" name="folder"></div>
 <button>Create folder</button>
 </form>

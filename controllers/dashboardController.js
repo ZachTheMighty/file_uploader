@@ -15,7 +15,22 @@ const foldersGet = async (req, res) => {
   });
 };
 
+const foldersPost = async (req, res) => {
+  await prisma.folder.create({
+    data: {
+      name: req.body.folder,
+      user: {
+        connect: {
+          id: req.user.id,
+        },
+      },
+    },
+  });
+  res.redirect("/dashboard/folders");
+};
+
 module.exports = {
   dashboardGet,
   foldersGet,
+  foldersPost,
 };
