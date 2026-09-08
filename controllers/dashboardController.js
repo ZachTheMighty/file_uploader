@@ -1,7 +1,16 @@
 const prisma = require("../lib/prisma.ts");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ storage: multer.memoryStorage() });
+const { createClient } = require("@supabase/supabase-js");
 const { body, validationResult, matchedData } = require("express-validator");
+
+const { loadEnvFile } = require("node:process");
+
+try {
+  loadEnvFile();
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
 
 const dashboardGet = (req, res) =>
   res.render("dashboard.ejs", {
@@ -49,15 +58,32 @@ const folderGet = async (req, res) => {
   res.render("files.ejs", { folder, files: folder.files });
 };
 
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY,
+);
+
 const folderPost = [
   upload.single("file"),
   async (req, res) => {
-    console.log(req.file);
+    try {
+      if (!req.file) return res.status(400).send("No file uploaded");
+      const { error } = await supabase.storage
+        .from("files")
+        .upload(req.file.originalname, req.file.buffer, {
+          contentType: req.file.mimetype,
+          upsert: false,
+        });
+      if (error) throw error;
+    } catch (error) {
+      throw error;
+    }
     await prisma.file.create({
       data: {
         name: req.file.originalname,
         size: req.file.size.toString(),
-        url: req.file.destination,
+        url: supabase.storage.from("files").getPublicUrl(req.file.originalname)
+          .data.publicUrl,
         folder: {
           connect: {
             id: +req.params.id,

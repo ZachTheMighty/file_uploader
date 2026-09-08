@@ -11,7 +11,7 @@
 <% files.forEach(file => {%>
 <li>Name: <%= file.name%> <br>
 Size: <%= file.size%> <br>
-Url: <%= file.url%>
+<a href="<%= file.url%>" target="_blank">Url</a>
 </li>
 <% }); %>
 </ul>
