@@ -12,5 +12,6 @@ router.get("/", controller.dashboardGet);
 router.get("/folders", controller.foldersGet);
 router.post("/folders/new", controller.foldersPost);
 router.get("/folder/:id", controller.folderGet);
+router.post("/folder/:id", controller.folderPost);
 
 module.exports = router;

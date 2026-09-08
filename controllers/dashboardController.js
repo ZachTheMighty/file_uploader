@@ -1,4 +1,6 @@
 const prisma = require("../lib/prisma.ts");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const dashboardGet = (req, res) =>
   res.render("dashboard.ejs", {
@@ -38,9 +40,30 @@ const folderGet = async (req, res) => {
   res.render("files.ejs", { folder, files: folder.files });
 };
 
+const folderPost = [
+  upload.single("file"),
+  async (req, res) => {
+    console.log(req.file);
+    await prisma.file.create({
+      data: {
+        name: req.file.originalname,
+        size: req.file.size.toString(),
+        url: req.file.destination,
+        folder: {
+          connect: {
+            id: +req.params.id,
+          },
+        },
+      },
+    });
+    res.redirect("/dashboard/folders");
+  },
+];
+
 module.exports = {
   dashboardGet,
   foldersGet,
   foldersPost,
   folderGet,
+  folderPost,
 };

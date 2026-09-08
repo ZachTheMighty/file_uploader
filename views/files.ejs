@@ -9,15 +9,17 @@
 <% if(files.length !== 0) {%>
 <ul>
 <% files.forEach(file => {%>
-<li><%= file.name%></li>
-<li><%= file.size%></li>
+<li>Name: <%= file.name%> <br>
+Size: <%= file.size%> <br>
+Url: <%= file.url%>
+</li>
 <% }); %>
 </ul>
 <% } else {%>
 <p>No files in this folder</p>
 <% } %>
 <h2>Add files to this folder</h2>
-<form action="/dashboard/folder/<%= folder.id%>" method="post">
+<form action="/dashboard/folder/<%= folder.id%>" method="post" enctype="multipart/form-data">
 <div><label for="file">Name</label><input type="file" id="file" name="file"></div>
 <button>Add file</button>
 </body>
