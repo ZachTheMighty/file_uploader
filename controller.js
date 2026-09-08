@@ -1,5 +1,6 @@
 const { body, validationResult, matchedData } = require("express-validator");
 const prisma = require("./lib/prisma.ts");
+const bcrypt = require("bcryptjs");
 
 const homeGet = (req, res) => res.render("home.ejs");
 
@@ -74,7 +75,7 @@ const signUpPost = [
         first_name: req.body.firstName,
         last_name: req.body.lastName,
         email: req.body.email,
-        password: req.body.password,
+        password: await bcrypt.hash(matchedData(req).password, 10),
       },
     });
     res.redirect("/login");
