@@ -29,3 +29,11 @@ model File {
   user User @relation(fields: [userId], references: [id])
   @@map("files")
 }
+
+model Session {
+  id String @id
+  sid String @unique
+  data String
+  expiresAt DateTime
+  @@map("session")
+}
