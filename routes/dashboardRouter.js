@@ -11,7 +11,9 @@ router.use((req, res, next) => {
 router.get("/", controller.dashboardGet);
 router.get("/folders", controller.foldersGet);
 router.post("/folders/new", controller.foldersPost);
+
 router.get("/folder/:id", controller.folderGet);
 router.post("/folder/:id", controller.folderPost);
+router.get("/folder/delete/:id", controller.folderDeleteGet);
 
 module.exports = router;

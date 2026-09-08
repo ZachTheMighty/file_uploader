@@ -69,10 +69,23 @@ const folderPost = [
   },
 ];
 
+const folderDeleteGet = async (req, res) => {
+  const deleteFiles = prisma.file.deleteMany({
+    where: { folderId: +req.params.id },
+  });
+  const deleteFolders = prisma.folder.deleteMany({
+    where: { id: +req.params.id },
+  });
+
+  await prisma.$transaction([deleteFiles, deleteFolders]);
+  res.redirect("/dashboard/folders");
+};
+
 module.exports = {
   dashboardGet,
   foldersGet,
   foldersPost,
   folderGet,
   folderPost,
+  folderDeleteGet,
 };
