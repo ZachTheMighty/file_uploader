@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+</head>
+<body>
+<%- include("partials/logo")%>
+<h1>Login</h1>
+<form action="/login" method="post">
+<div><label for="email">Email</label><input type="email" id="email" name="email"></div>
+<div><label for="password">Password</label><input type="password" id="password" name="password"></div>
+<button>Login</button>
+</form>
+<%- include("partials/errors.ejs")%>
+</body>
+</html>
