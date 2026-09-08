@@ -9,7 +9,7 @@
 <% if(folders.length !== 0) {%>
 <ul>
 <% folders.forEach(folder => {%>
-<li><a href="/dashboard/folder/<%= folder.id%>"><%= folder.name%></a> <a href="/dashboard/folder/delete/<%= folder.id%>"> Delete</a></li>
+<li><a href="/dashboard/folder/<%= folder.id%>"><%= folder.name%></a> <a href="/dashboard/folder/delete/<%= folder.id%>"> Delete</a> <a href="/dashboard/folder/update/<%= folder.id%>">Update</a></li>
 <% }); %>
 </ul>
 <% } else { %>

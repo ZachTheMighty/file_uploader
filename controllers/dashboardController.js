@@ -81,6 +81,9 @@ const folderDeleteGet = async (req, res) => {
   res.redirect("/dashboard/folders");
 };
 
+const folderUpdateGet = (req, res) =>
+  res.render("folder_rename.ejs", { folderId: +req.params.id });
+
 module.exports = {
   dashboardGet,
   foldersGet,
@@ -88,4 +91,5 @@ module.exports = {
   folderGet,
   folderPost,
   folderDeleteGet,
+  folderUpdateGet,
 };
