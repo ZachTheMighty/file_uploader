@@ -44,6 +44,12 @@ const dashboardRouter = require("./routes/dashboardRouter.js");
 app.use("/sign-up", signUpRouter);
 app.use("/login", logInRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/logout", (req, res) =>
+  req.logout((error) => {
+    if (error) return error;
+    res.redirect("/");
+  }),
+);
 app.use("/", (req, res) => res.render("home.ejs"));
 
 const port = process.env.NODE_SERVER_PORT;
