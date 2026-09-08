@@ -39,9 +39,11 @@ app.use(passport.session());
 
 const signUpRouter = require("./routes/signUpRouter.js");
 const logInRouter = require("./routes/logInRouter.js");
+const dashboardRouter = require("./routes/dashboardRouter.js");
 
 app.use("/sign-up", signUpRouter);
 app.use("/login", logInRouter);
+app.use("/dashboard", dashboardRouter);
 app.use("/", (req, res) => res.render("home.ejs"));
 
 const port = process.env.NODE_SERVER_PORT;
