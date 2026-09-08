@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("node:path");
-const router = require("./router.js");
+const signUpRouter = require("./routes/signUpRouter.js");
 const { loadEnvFile } = require("node:process");
 
 try {
@@ -15,7 +15,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("views engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", router);
+app.use("/sign-up", signUpRouter);
+app.use("/", (req, res) => res.render("home.ejs"));
 
 const port = process.env.NODE_SERVER_PORT;
 app.listen(port, (error) => {

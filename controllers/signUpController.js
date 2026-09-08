@@ -1,8 +1,6 @@
 const { body, validationResult, matchedData } = require("express-validator");
-const prisma = require("./lib/prisma.ts");
+const prisma = require("../lib/prisma.ts");
 const bcrypt = require("bcryptjs");
-
-const homeGet = (req, res) => res.render("home.ejs");
 
 const signUpGet = (req, res) => res.render("sign_up.ejs");
 
@@ -83,7 +81,6 @@ const signUpPost = [
 ];
 
 module.exports = {
-  homeGet,
   signUpGet,
   signUpPost,
 };
