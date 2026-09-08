@@ -84,6 +84,14 @@ const folderDeleteGet = async (req, res) => {
 const folderUpdateGet = (req, res) =>
   res.render("folder_rename.ejs", { folderId: +req.params.id });
 
+const folderUpdatePost = async (req, res) => {
+  await prisma.folder.update({
+    where: { id: +req.params.id },
+    data: { name: req.body.folder },
+  });
+  res.redirect("/dashboard/folders");
+};
+
 module.exports = {
   dashboardGet,
   foldersGet,
@@ -92,4 +100,5 @@ module.exports = {
   folderPost,
   folderDeleteGet,
   folderUpdateGet,
+  folderUpdatePost,
 };
