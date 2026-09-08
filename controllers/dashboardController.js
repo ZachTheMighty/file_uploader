@@ -29,8 +29,18 @@ const foldersPost = async (req, res) => {
   res.redirect("/dashboard/folders");
 };
 
+const folderGet = async (req, res) => {
+  const folder = await prisma.folder.findUnique({
+    where: { id: +req.params.id },
+    include: { files: true },
+  });
+
+  res.render("files.ejs", { folder, files: folder.files });
+};
+
 module.exports = {
   dashboardGet,
   foldersGet,
   foldersPost,
+  folderGet,
 };
