@@ -1,6 +1,7 @@
 const prisma = require("../lib/prisma.ts");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+const { body, validationResult, matchedData } = require("express-validator");
 
 const dashboardGet = (req, res) =>
   res.render("dashboard.ejs", {
@@ -17,19 +18,27 @@ const foldersGet = async (req, res) => {
   });
 };
 
-const foldersPost = async (req, res) => {
-  await prisma.folder.create({
-    data: {
-      name: req.body.folder,
-      user: {
-        connect: {
-          id: req.user.id,
+const foldersPost = [
+  body("folder").trim().notEmpty().withMessage("Folder name can't be empty"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res
+        .status(400)
+        .render("folders.ejs", { folders: [], errors: errors.array() });
+    await prisma.folder.create({
+      data: {
+        name: req.body.folder,
+        user: {
+          connect: {
+            id: req.user.id,
+          },
         },
       },
-    },
-  });
-  res.redirect("/dashboard/folders");
-};
+    });
+    res.redirect("/dashboard/folders");
+  },
+];
 
 const folderGet = async (req, res) => {
   const folder = await prisma.folder.findUnique({
