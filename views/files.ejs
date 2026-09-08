@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Files</title>
+</head>
+<body>
+<h1>All files in <%= folder.name%></h1>
+<% if(files.length !== 0) {%>
+<ul>
+<% files.forEach(file => {%>
+<li>Name: <%= file.name%> <br>
+Size: <%= file.size%> <br>
+<a href="<%= file.url%>" target="_blank">Url</a>
+</li>
+<% }); %>
+</ul>
+<% } else {%>
+<p>No files in this folder</p>
+<% } %>
+<h2>Add files to this folder</h2>
+<form action="/dashboard/folder/<%= folder.id%>" method="post" enctype="multipart/form-data">
+<div><label for="file">Name</label><input type="file" id="file" name="file"></div>
+<button>Add file</button>
+</body>
+</html>
