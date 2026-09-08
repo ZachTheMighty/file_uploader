@@ -9,5 +9,6 @@ router.use((req, res, next) => {
 });
 
 router.get("/", controller.dashboardGet);
+router.get("/folders", controller.foldersGet);
 
 module.exports = router;

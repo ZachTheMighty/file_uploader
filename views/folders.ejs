@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Folders</title>
+</head>
+<body>
+<h1>Your Folders</h1>
+<% if(folders.length !== 0) {%>
+<ul>
+<% folders.forEach(folder => {%>
+<li><%= folder%></li>
+<% }); %>
+</ul>
+<% } else { %>
+<p>You have no folders</p>
+<% } %>
+<h2>Create new folder</h2>
+<form action="/dashboard/folders/new">
+<div><label for="folder">Name</label><input type="text"></div>
+<button>Create folder</button>
+</form>
+</body>
+</html>
